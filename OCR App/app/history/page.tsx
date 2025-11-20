@@ -42,7 +42,10 @@ function HistoryItem({ doc }: { doc: Document }) {
             </div>
 
             {isOpen && (
-                <div className="px-6 pb-6 animate-in slide-in-from-top-2 duration-200">
+                <div
+                    className="px-6 pb-6 animate-in slide-in-from-top-2 duration-200"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
                         <article className="prose prose-xl prose-blue max-w-none dark:prose-invert text-gray-600 dark:text-gray-300">
                             <ReactMarkdown
