@@ -1,0 +1,19 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Document {
+  id            Int      @id @default(autoincrement())
+  originalName  String
+  title         String?  // AI generated title
+  extractedText String
+  createdAt     DateTime @default(now())
+}
