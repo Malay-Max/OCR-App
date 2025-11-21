@@ -16,6 +16,7 @@ interface Document {
 
 function HistoryItem({ doc }: { doc: Document }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [showRawSection, setShowRawSection] = useState(false);
 
     return (
         <div
@@ -58,6 +59,24 @@ function HistoryItem({ doc }: { doc: Document }) {
                                 {doc.extractedText}
                             </ReactMarkdown>
                         </article>
+
+                        <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <button
+                                onClick={() => setShowRawSection(!showRawSection)}
+                                className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            >
+                                <span>{showRawSection ? '▼' : '▶'}</span>
+                                {showRawSection ? 'Hide' : 'Show'} Raw Markdown
+                            </button>
+
+                            {showRawSection && (
+                                <div className="mt-4">
+                                    <pre className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto text-sm font-mono text-gray-800 dark:text-gray-200 whitespace-pre-wrap border border-gray-200 dark:border-gray-700">
+                                        {doc.extractedText}
+                                    </pre>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

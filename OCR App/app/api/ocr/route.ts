@@ -23,7 +23,18 @@ export async function POST(req: NextRequest) {
         });
 
         const result = await model.generateContent([
-            'Extract all text from this document. Return a JSON object with two fields: "title" (a short, descriptive title based on the document content) and "content" (the full extracted text in Markdown format). Do NOT wrap the content in code blocks.',
+            `Extract all text from this document and format it as proper Markdown. Return a JSON object with two fields:
+1. "title": A short, descriptive title (3-5 words) based on the document content
+2. "content": The full extracted text formatted with PROPER MARKDOWN SYNTAX following these rules:
+   - Use # for main headings, ## for subheadings, ### for sub-subheadings
+   - Convert all bullet points to markdown list format using "- " (dash + space)
+   - Use **bold** for emphasis and *italics* where appropriate
+   - Format tables using markdown table syntax with | and -
+   - Use > for blockquotes
+   - Maintain proper spacing and line breaks between sections
+   - Do NOT use special characters like • or ◦ for bullets
+   - Do NOT wrap the output in code blocks
+   - Ensure the output is valid, well-formatted markdown that will render beautifully`,
             {
                 inlineData: {
                     data: base64,

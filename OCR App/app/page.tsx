@@ -11,6 +11,7 @@ export default function Home() {
   const [result, setResult] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showRawSection, setShowRawSection] = useState(false);
 
   const handleFileSelect = async (file: File) => {
     setIsProcessing(true);
@@ -77,7 +78,7 @@ export default function Home() {
                 className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? 'Copied!' : 'Copy Text'}
+                {copied ? 'Copied!' : 'Copy Raw Markdown'}
               </button>
             </div>
             <div className="p-6">
@@ -92,6 +93,24 @@ export default function Home() {
                   {result}
                 </ReactMarkdown>
               </article>
+
+              <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+                <button
+                  onClick={() => setShowRawSection(!showRawSection)}
+                  className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  <span>{showRawSection ? '▼' : '▶'}</span>
+                  {showRawSection ? 'Hide' : 'Show'} Raw Markdown
+                </button>
+
+                {showRawSection && (
+                  <div className="mt-4">
+                    <pre className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto text-sm font-mono text-gray-800 dark:text-gray-200 whitespace-pre-wrap border border-gray-200 dark:border-gray-700">
+                      {result}
+                    </pre>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
